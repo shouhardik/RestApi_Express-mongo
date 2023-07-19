@@ -23,12 +23,31 @@ export const getAllCOntacts=async(req,res)=>{
     }
 }
 
+export const getContactWithId=async(req,res)=>{
+    try{
+        let getId=await Contact.findById(req.params.contactId)
+        res.json(getId)
+
+    }catch(err){
+        res.status(500).send(err);
+    }
+}
+
 export const updateContact=async(req,res)=>{
     try{
-        let tobeUpdated= Contact.findById(req.body._id)
-        let updated=await new tobeUpdated.findById(req.body._id)
-        let savedUpdated=await updated.save()
-        res.json(savedUpdated)
+        let tobeUpdated=await Contact.findOneAndUpdate({_id:req.params.contactId},req.body,{new:true})
+       // let updated=await new tobeUpdated.findById(req.body._id)
+       // let savedUpdated=await tobeUpdated.save()
+        res.json(tobeUpdated)
+
+    }catch(err){
+        res.status(500).send(err)
+    }
+}
+export const deleteContact=async(req,res)=>{
+    try{
+        let tobeDelete=await Contact.deleteOne({_id:req.params.contactId})
+        res.json(tobeDelete)
     }catch(err){
         res.status(500).send(err)
     }

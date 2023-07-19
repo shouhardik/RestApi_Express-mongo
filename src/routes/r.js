@@ -1,13 +1,12 @@
-import { addNewContact,getAllCOntacts,updateContact } from "../controllers/c"
+import { addNewContact,getAllCOntacts,updateContact,getContactWithId,deleteContact } from "../controllers/c"
 
 const routes=(app)=>{
     app.route("/contact")
     .get(getAllCOntacts)
     .post(addNewContact)
     app.route("/contact/:contactId")
+    .get(getContactWithId)
     .put(updateContact)
-    .delete((req,res)=>{
-        res.send("Del req")
-    })
+    .delete(deleteContact)
 }
 module.exports=routes
